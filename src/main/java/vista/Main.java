@@ -1,10 +1,5 @@
 package vista;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-
-import controlador.GestionBaseDeDatos;
 import controlador.Navegador;
 
 public class Main {
