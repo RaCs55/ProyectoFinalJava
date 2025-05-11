@@ -5,17 +5,14 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class GestionBaseDeDatos {
-	String url = "jdbc:postgresql://localhost:5432/Proyecto";
-	String user = "postgres";
-	String password = "postgres";
+	private static final String URL = "jdbc:postgresql://localhost:5432/Proyecto";
 	
 	
-	public void prueba() {
-		try (Connection con = DriverManager.getConnection(url, user, password)) {
-
-			
+	public boolean comprobarConexion(String user, String password) {
+		try (Connection con = DriverManager.getConnection(URL, user, password)) {
+			return true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			return false;
 		}
 	}
 	
