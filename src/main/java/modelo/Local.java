@@ -1,19 +1,19 @@
 package modelo;
 
 
-public class Lugar {
-    private String codLugar;
+public class Local {
+    private String codLocal;
     private String direccion;
 
-    public Lugar() {}
+    public Local() {}
 
-    public Lugar(String codLugar, String direccion) {
-        this.codLugar = codLugar;
+    public Local(String codLocal, String direccion) {
+        this.codLocal = codLocal;
         this.direccion = direccion;
     }
 
-    public String getCodLugar() { return codLugar; }
-    public void setCodLugar(String codLugar) { this.codLugar = codLugar; }
+    public String getCodLugar() { return codLocal; }
+    public void setCodLugar(String codLugar) { this.codLocal = codLugar; }
 
     public String getDireccion() { return direccion; }
     public void setDireccion(String direccion) { this.direccion = direccion; }
@@ -21,7 +21,7 @@ public class Lugar {
     @Override
     public String toString() {
         return "Lugar{" +
-               "codLugar='" + codLugar + '\'' +
+               "codLugar='" + codLocal + '\'' +
                ", direccion='" + direccion + '\'' +
                '}';
     }

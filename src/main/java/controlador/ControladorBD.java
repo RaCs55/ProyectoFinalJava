@@ -2,17 +2,17 @@ package controlador;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class GestionBaseDeDatos {
+public class ControladorBD {
 	private static final String URL = "jdbc:postgresql://localhost:5432/Proyecto";
 	private final String USER = "postgres";
 	private final String PASSWORD = "postgres";
+	private Connection connection;
 
 	public boolean comprobarConexion(String user, String password) {
 		try (Connection con = DriverManager.getConnection(URL, user, password)) {
@@ -21,56 +21,68 @@ public class GestionBaseDeDatos {
 			return false;
 		}
 	}
+	
+	public Connection conexionBD() {
+		try {
+	        connection = DriverManager.getConnection(URL, USER, PASSWORD);
+	        return connection;			
+		} catch (SQLException e) {
+			return null;
+		}
+	}
 
 	public ArrayList<ArrayList<Object>> obtenerDatosTabla(String nombreTabla) {
 		ArrayList<ArrayList<Object>> data = new ArrayList<>();
-		ArrayList<Object> fila = new ArrayList<>();
 		try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD)) {
 			String sql = "SELECT * FROM " + nombreTabla;
 			Statement st = con.createStatement();
-
 			ResultSet rs = st.executeQuery(sql);
 			ResultSetMetaData rsmd = rs.getMetaData();
-
+			
 			int totalColumnas = rsmd.getColumnCount();
-
+			
 			while (rs.next()) {
+				ArrayList<Object> fila = new ArrayList<>();
 				for (int i = 1; i <= totalColumnas; i++) {
 					fila.add(rs.getObject(i));
 				}
 				data.add(fila);
 			}
-
+			
 			return data;
-
+			
 		} catch (SQLException e) {
-
 			return null;
 		}
 	}
-
+	
+	
 	public ArrayList<String> obtenerNombreColumnas(String nombreTabla) {
 		ArrayList<String> nombres = new ArrayList<>();
 		try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD)) {
 			String sql = "SELECT * FROM " + nombreTabla;
 			Statement st = con.createStatement();
-
+			
 			ResultSet rs = st.executeQuery(sql);
 			ResultSetMetaData rsmd = rs.getMetaData();
-
+			
 			int totalColumnas = rsmd.getColumnCount();
-			System.out.println(totalColumnas);
-			for (int i = 1; i <= totalColumnas; i++) {
-				nombres.add(rsmd.getColumnName(i));
-			}
-
+				for (int i = 1; i <= totalColumnas; i++) {
+					nombres.add(rsmd.getColumnName(i));
+				}
+			
 			return nombres;
-
+			
 		} catch (SQLException e) {
-
+			
 			return null;
 		}
+	
 
 	}
 
+
+
+
+	
 }

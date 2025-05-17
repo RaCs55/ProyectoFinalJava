@@ -4,14 +4,14 @@ package modelo;
 public class Cliente {
     private int numCliente;
     private String nombre;
-    private Mesa mesa;
+    private int numMesa;
 
     public Cliente() {}
 
-    public Cliente(int numCliente, String nombre, Mesa mesa) {
+    public Cliente(int numCliente, String nombre, int numMesa) {
         this.numCliente = numCliente;
         this.nombre = nombre;
-        this.mesa = mesa;
+        this.numMesa = numMesa;
     }
 
     public int getNumCliente() { return numCliente; }
@@ -20,15 +20,15 @@ public class Cliente {
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
 
-    public Mesa getMesa() { return mesa; }
-    public void setMesa(Mesa mesa) { this.mesa = mesa; }
+    public int getMesa() { return numMesa; }
+    public void setMesa(Mesa mesa) { this.numMesa = numMesa; }
 
     @Override
     public String toString() {
         return "Cliente{" +
                "numCliente=" + numCliente +
                ", nombre='" + nombre + '\'' +
-               ", mesa=" + mesa.getNumeroMesa() +
+               ", mesa=" + numMesa +
                '}';
     }
 }

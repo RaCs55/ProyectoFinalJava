@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import controlador.GestionBaseDeDatos;
+import controlador.ControladorBD;
 import controlador.Navegador;
 
 public class VentanaPrincipal extends JFrame {
@@ -70,12 +70,10 @@ public class VentanaPrincipal extends JFrame {
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 
-		JLabel lblNewLabel_3 = new JLabel("");
-		lblNewLabel_3.setBounds(33, 0, 34, 70);
-		panel_1.add(lblNewLabel_3);
-		lblNewLabel_3.setIcon(new ImageIcon(
-				"C:\\Users\\racos\\OneDrive - Conselleria d'Educació\\1DAM\\ProyectoFinal\\Java\\mi-proyecto-final\\src\\main\\java\\images\\izquierda.png"));
-
+		//JLabel lblNewLabel_3 = new JLabel("");
+		//lblNewLabel_3.setBounds(33, 0, 34, 70);
+		//panel_1.add(lblNewLabel_3);
+		//lblNewLabel_3.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/images/izquierda.png")));
 		JLabel lblNewLabel_2 = new JLabel("LOS POLLOS HERMANOS");
 		lblNewLabel_2.setBounds(0, 22, 434, 26);
 		panel_1.add(lblNewLabel_2);
@@ -83,10 +81,10 @@ public class VentanaPrincipal extends JFrame {
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 
-		JLabel lblNewLabel_3_1 = new JLabel("");
-		lblNewLabel_3_1.setIcon(new ImageIcon("C:\\Users\\racos\\Pictures\\4.png"));
-		lblNewLabel_3_1.setBounds(359, 0, 34, 70);
-		panel_1.add(lblNewLabel_3_1);
+		//JLabel lblNewLabel_3_1 = new JLabel("");
+		//lblNewLabel_3_1.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/images/derecha.png")));
+		//lblNewLabel_3_1.setBounds(359, 0, 34, 70);
+		//panel_1.add(lblNewLabel_3_1);
 
 		JButton btnEnviar = new JButton("Enviar");
 		btnEnviar.addActionListener(new ActionListener() {
@@ -94,14 +92,14 @@ public class VentanaPrincipal extends JFrame {
 				String user = textUser.getText();
 				String password = textPassword.getText();
 
-				GestionBaseDeDatos gestor = new GestionBaseDeDatos();
+				ControladorBD gestor = new ControladorBD();
 				if (gestor.comprobarConexion(user, password)) {
 					// Aqui luego tengo que agregar otra ventana
 					if (!Navegador.isCreate("VentanaMenu")) {
 						VentanaMenu ventanaMenu = new VentanaMenu();
 						Navegador.agregarVentana(ventanaMenu);
 					}
-					
+
 					Navegador.dispatcher("VentanaMenu", true);
 					Navegador.dispatcher("VentanaPrincipal", false);
 
@@ -112,8 +110,8 @@ public class VentanaPrincipal extends JFrame {
 		});
 		btnEnviar.setBounds(25, 203, 369, 31);
 		panel.add(btnEnviar);
-		ImageIcon icon = new ImageIcon(getClass().getResource("/images/izquierda.png"));
-		JLabel label = new JLabel(icon);
+		//ImageIcon icon = new ImageIcon(getClass().getResource("/images/izquierda.png"));
+		//JLabel label = new JLabel(icon);
 	}
 
 	private void mostrarMensaje(String titulo, String mensaje, int tipo) {
