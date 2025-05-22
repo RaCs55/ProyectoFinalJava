@@ -1,126 +1,225 @@
 package vista;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
+import javax.swing.*;
 
-import controlador.Navegador;
+import controlador.*;
+import modelo.Pedir;
+import util.FileController;
+import util.GestionArchivos;
+import util.Navegador;
+import util.TablasController;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VentanaMenu extends JFrame {
 
-	private static final long serialVersionUID = 1L;
-	private JTable table;
+    private static final long serialVersionUID = 1L;
+    private JTable table;
+    private String nombreTablaActual;
+    private TablasController tablasController;
+    private Map<String, JButton> botonesMapTablas = new HashMap<>();
+    private Map<String, JButton> botonesMapFunciones = new HashMap<>();
+    FileController fileController = new FileController();
+    private Pedir pedir;
 
-	public VentanaMenu() {
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				Navegador.dispatcher("VentanaPrincipal", true);
-			}
-		});
-		setTitle("VentanaMenu");
-		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setSize(1200, 800);
-		setLocationRelativeTo(null);
-		getContentPane().setLayout(new BorderLayout());
+    public VentanaMenu() {
+        ImageIcon icono = new ImageIcon(getClass().getResource("/images/"));
+        setIconImage(icono.getImage());
+        this.pedir = new Pedir();
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                Navegador.dispatcher("VentanaPrincipal", true);
+            }
+        });
+        setTitle("VentanaMenu");
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        setSize(1200, 800);
+        setLocationRelativeTo(null);
+        getContentPane().setLayout(new BorderLayout());
 
-		getContentPane().add(panelArriba(), BorderLayout.NORTH);
-		getContentPane().add(panelCentral(), BorderLayout.CENTER);
-		getContentPane().add(panelIzquierda(), BorderLayout.WEST);
-		getContentPane().add(panelAbajo(), BorderLayout.SOUTH);
+        getContentPane().add(panelArriba(), BorderLayout.NORTH);
+        getContentPane().add(panelCentral(), BorderLayout.CENTER);
+        getContentPane().add(panelIzquierda(), BorderLayout.WEST);
+        getContentPane().add(panelAbajo(), BorderLayout.SOUTH);
 
-		JMenuBar menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
+        JMenuBar menuBar = new JMenuBar();
+        setJMenuBar(menuBar);
 
-		JMenu mnNewMenu = new JMenu("New menu");
-		menuBar.add(mnNewMenu);
+        JMenu mnFile = new JMenu("File");
+        menuBar.add(mnFile);
 
-		JMenuItem mntmNewMenuItem = new JMenuItem("New menu item");
-		mnNewMenu.add(mntmNewMenuItem);
+        JMenu mnPerfil = new JMenu("Perfil");
+        menuBar.add(mnPerfil);
 
-	}
+        JMenuItem mntmImportar = new JMenuItem("Importar");
+        mntmImportar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+                String ruta = fileController.elegirRuta();
+                ArrayList<String[]> datos = fileController.cargarDatos(ruta);
+                GestionArchivos.importarArchivo(ruta, datos, nombreTablaActual);
 
-	public JPanel panelArriba() {
-		JPanel panel = new JPanel();
-		panel.setLayout(new FlowLayout());
+                tablasController.actualizarTabla(nombreTablaActual);
+        	}
+        });
+        mnFile.add(mntmImportar);
 
-		JLabel titulo = new JLabel("LOS POLLOS HERMANOS");
-		titulo.setFont(new Font("Arial", Font.BOLD, 24));
-		panel.add(titulo, "");
+        JMenuItem mntmExportar = new JMenuItem("Exportar");
+        mnFile.add(mntmExportar);
+        mntmExportar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String ruta = fileController.elegirRuta();
+                GestionArchivos.exportarArchivo(ruta, nombreTablaActual);
+            }
+        });
 
-		return panel;
-	}
+        tablasController = new TablasController(table);
 
-	public JPanel panelCentral() {
-		JPanel panel = new JPanel(new BorderLayout());
-		JScrollPane scrollPane = new JScrollPane();
-        String[] columnas = {"Nombre", "Edad"};
-        Object[][] datos = {{"Ana", 25}, {"Luis", 30}};
-		JTable tabla = new JTable(datos, columnas);
-
-		scrollPane.setViewportView(tabla);
-		panel.add(scrollPane, BorderLayout.CENTER);
-
-		return panel;
-	}
-
-	public JPanel panelIzquierda() {
-		JPanel panel = new JPanel();
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-
-		JButton btn1 = new JButton("Boton 1");
-		panel.add(btn1);
-		panel.add(Box.createVerticalStrut(10));
-
-
-		JButton btn2 = new JButton("Boton 2");
-		panel.add(btn2);
-		panel.add(Box.createVerticalStrut(10));
+        controlBotonesTablas();
+        controlBotonesFunciones();
 
 
-		JButton btn3 = new JButton("Boton 3");
-		panel.add(btn3);
-		panel.add(Box.createVerticalStrut(10));
+    }
 
 
-		JButton btn4 = new JButton("Boton 4");
-		panel.add(btn4);
-		panel.add(Box.createVerticalStrut(10));
+    public JPanel panelArriba() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new FlowLayout());
+
+        JLabel titulo = new JLabel("LOS POLLOS HERMANOS");
+        titulo.setFont(new Font("Arial", Font.BOLD, 24));
+        panel.add(titulo);
+
+        return panel;
+    }
+
+    public JPanel panelCentral() {
+        JPanel panel = new JPanel(new BorderLayout());
+        JScrollPane scrollPane = new JScrollPane();
+        table = new JTable();
+
+        scrollPane.setViewportView(table);
+        panel.add(scrollPane, BorderLayout.CENTER);
+
+        return panel;
+    }
+
+    public JPanel panelIzquierda() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        Dimension buttonSize = new Dimension(120, 30);
+        int strutSize = 15;
+
+        String[] buttonNames = {"Producto", "Proveedor", "Factura", "Pedido", "Trabajador"};
+
+        for (String name : buttonNames) {
+            JButton button = new JButton(name);
+            button.setMaximumSize(buttonSize);
+            button.setAlignmentX(Component.CENTER_ALIGNMENT);
+            botonesMapTablas.put(name, button);
+            panel.add(button);
+            panel.add(Box.createVerticalStrut(strutSize));
+        }
+
+        return panel;
+    }
+
+    public JPanel panelAbajo() {
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 100, 20));
+
+        String[] buttonNames = {"Editar", "Agregar", "Eliminar"};
+
+        for (String name : buttonNames) {
+            JButton button = new JButton(name);
+            button.setAlignmentX(Component.CENTER_ALIGNMENT);
+            botonesMapFunciones.put(name, button);
+            panel.add(button);
+        }
 
 
-		return panel;
-	}
+        return panel;
+    }
 
-	public JPanel panelAbajo() {
-		JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 100, 20));
+    public void controlBotonesTablas() {
+
+        for (String button : botonesMapTablas.keySet()) {
+            botonesMapTablas.get(button).addActionListener(e -> {
+                        nombreTablaActual = button;
+                        tablasController.actualizarTabla(nombreTablaActual);
+
+                    }
+            );
+        }
+    }
+
+    public void controlBotonesFunciones() {
+
+        for (String button : botonesMapFunciones.keySet()) {
+
+            botonesMapFunciones.get(button).addActionListener(e -> {
+                switch (button) {
+                    case "Editar":
+                        System.out.println("Editar");
+                        tablasController.setEsEditable(!tablasController.getEsEditable());
+                        tablasController.actualizarTabla(nombreTablaActual);
+                        break;
+                    case "Agregar":
+                        System.out.println("Agregar");
+                        VentanaAgregar ventanaAgregar = new VentanaAgregar(nombreTablaActual, table, pedir);
+                        ventanaAgregar.setVisible(true);
+                        break;
+                    case "Eliminar":
+                        System.out.println("Eliminar");
+                        int column = 0;
+                        int row = table.getSelectedRow();
+                        String value = table.getModel().getValueAt(row, column).toString();
+                        eliminarFila(value);
 
 
-		JButton btnEditar = new JButton("Editar");
-		panel.add(btnEditar);
+                }
+                tablasController.actualizarTabla(nombreTablaActual);
 
-		JButton btnAgregar = new JButton("Agregar");
-		panel.add(btnAgregar);
-		
-		JButton btnEliminar = new JButton("Eliminar");
-		panel.add(btnEliminar);
+            });
+        }
+    }
 
-		
-		
-		
-		return panel;
-	}
+    public void eliminarFila(String codigo) {
+        switch (nombreTablaActual) {
+            case "Proveedor":
+                ProveedorController.eliminar(codigo);
+                break;
+            case "Producto":
+                ProductoController.eliminar(codigo);
+                break;
+            case "Trabajador":
+                TrabajadorController.eliminar(codigo);
+                break;
+            case "Factura":
+                PedirController.eliminar(codigo);
+                FacturaController.eliminar(codigo);
+                break;
+            case "Pedido":
+                PedirController.eliminar(codigo);
+                PedidoController.eliminar(codigo);
+            default:
+
+                break;
+
+        }
+    }
 }

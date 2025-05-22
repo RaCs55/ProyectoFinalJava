@@ -25,10 +25,6 @@ public class Pedido {
 
     @Override
     public String toString() {
-        return "Pedido{" +
-               "codPedido='" + codPedido + '\'' +
-               ", comida='" + comida + '\'' +
-               ", bebida='" + bebida + '\'' +
-               '}';
+        return codPedido + "," + comida + "," + bebida;
     }
 }

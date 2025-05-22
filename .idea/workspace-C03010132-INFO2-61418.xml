@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="6f3ea098-0818-41a4-8844-7e5e157e96a6" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/controlador/ClienteController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/controlador/FacturaController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/controlador/ProductoController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/estilos/Estilos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controlador/AlimentoController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controlador/ControladorBD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controlador/BaseDatosController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controlador/ControladorTablas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controlador/TablasController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controlador/GestionVentanas.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/modelo/Alimento.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/modelo/dao/AlimentoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/modelo/dao/ProductoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vista/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vista/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vista/VentanaAgregar.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vista/VentanaLocal.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vista/VentanaMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vista/VentanaMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vista/VentanaOperaciones.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vista/VentanaPersonal.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vista/VentanaPrincipal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vista/VentanaPrincipal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/maven/io.github.racs55/mi-proyecto-final/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/maven/io.github.racs55/mi-proyecto-final/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controlador/ConfiguracionBD.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controlador/ConfiguracionBD.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controlador/ControladorBD.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controlador/ControladorTablas$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controlador/ControladorTablas.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controlador/GestionVentanas$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controlador/GestionVentanas.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controlador/Navegador.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controlador/Navegador.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/images/Los_Pollos_Hermanos_logo - copia.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/images/Los_Pollos_Hermanos_logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/images/derecha.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/images/izquierda.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/modelo/Alimento.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/modelo/Alimento.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/modelo/Camarero.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/modelo/Camarero.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/modelo/Cliente.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/modelo/Cliente.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/modelo/Cocinero.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/modelo/Cocinero.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/modelo/Factura.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/modelo/Factura.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/modelo/Gerente.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/modelo/Gerente.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/modelo/Local.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/modelo/Local.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/modelo/Mesa.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/modelo/Mesa.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/modelo/Pedido.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/modelo/Pedido.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/modelo/Producto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/modelo/Producto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/modelo/Propina.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/modelo/Propina.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/modelo/Proveedor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/modelo/Proveedor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/modelo/Trabajador.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/modelo/Trabajador.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/modelo/dao/AlimentoDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/modelo/dao/ClienteDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/modelo/dao/ClienteDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/modelo/dao/FacturaDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/modelo/dao/FacturaDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/modelo/dao/GerenteDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/modelo/dao/GerenteDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/modelo/dao/MesaDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/modelo/dao/MesaDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/modelo/dao/ModeloDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/modelo/dao/ModeloDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/modelo/dao/PedidoDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/modelo/dao/PedidoDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/modelo/dao/TrabajadorDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/modelo/dao/TrabajadorDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/vista/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/vista/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/vista/VentanaAgregar$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/vista/VentanaAgregar$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/vista/VentanaAgregar$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/vista/VentanaAgregar.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/vista/VentanaAgregar.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/vista/VentanaLocal$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/vista/VentanaLocal$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/vista/VentanaLocal$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/vista/VentanaLocal.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/vista/VentanaMenu$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/vista/VentanaMenu$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/vista/VentanaMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/vista/VentanaMenu.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/vista/VentanaOperaciones$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/vista/VentanaOperaciones$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/vista/VentanaOperaciones.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/vista/VentanaPersonal$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/vista/VentanaPersonal$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/vista/VentanaPersonal.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/vista/VentanaPrincipal$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/vista/VentanaPrincipal$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/vista/VentanaPrincipal.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/vista/VentanaPrincipal.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/mi-proyecto-final-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/mi-proyecto-final-0.0.1-SNAPSHOT.jar" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="qz93y2as" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2xCHIFC9FtmQsfGZ1sWzvOQKFGh" />
+  <component name="ProjectViewState">
+    <option name="flattenModules" value="true" />
+    <option name="flattenPackages" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "Application.Unnamed.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/raucolsan/OneDrive - Conselleria d'Educació/1DAM/ProyectoFinal/Java/mi-proyecto-final-refactorizado",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "org.rust.cargo.project.model.impl.CargoExternalSystemProjectAware.subscribe.first.balloon": "",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
+    ]
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="21" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="vista.Main" />
+      <module name="mi-proyecto-final" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.59" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.59" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6f3ea098-0818-41a4-8844-7e5e157e96a6" name="Changes" comment="" />
+      <created>1747435053227</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1747435053227</updated>
+      <workItem from="1747435054255" duration="1443000" />
+      <workItem from="1747465317453" duration="3403000" />
+      <workItem from="1747470952478" duration="600000" />
+      <workItem from="1747474581662" duration="30950000" />
+      <workItem from="1747579331588" duration="1404000" />
+      <workItem from="1747580758740" duration="207000" />
+      <workItem from="1747581033789" duration="3772000" />
+      <workItem from="1747669404054" duration="1117000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

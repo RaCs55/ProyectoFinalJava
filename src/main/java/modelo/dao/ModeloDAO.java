@@ -2,7 +2,7 @@ package modelo.dao;
 
 import java.sql.SQLException;
 
-import controlador.ConfiguracionBD;
+import configuracion.ConfiguracionBD;
 
 public abstract class ModeloDAO<T, V> {
 	private ConfiguracionBD configuracionBD = new ConfiguracionBD();
@@ -17,7 +17,7 @@ public abstract class ModeloDAO<T, V> {
 	
 	public abstract boolean agregar(T objeto) throws SQLException;
 	public abstract boolean eliminar(V codigo) throws SQLException;
-
+	public abstract T[] mostrar() throws SQLException;
 	
 	
 }

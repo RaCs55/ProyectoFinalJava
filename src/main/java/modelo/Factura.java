@@ -24,10 +24,6 @@ public class Factura {
 
     @Override
     public String toString() {
-        return "Factura{" +
-               "codFactura='" + codFactura + '\'' +
-               ", formaPago='" + formaPago + '\'' +
-               ", precioTotal=" + precioTotal +
-               '}';
+        return codFactura + "," + formaPago + "," + precioTotal;
     }
 }

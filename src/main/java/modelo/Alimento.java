@@ -25,9 +25,9 @@ public class Alimento {
     @Override
     public String toString() {
         return "Alimento{" +
-               "codAlimento=" + codigo +
-               ", tipo='" + tipo + '\'' +
-               ", nombre='" + nombre + '\'' +
-               '}';
+                "codAlimento=" + codigo +
+                ", tipo='" + tipo + '\'' +
+                ", nombre='" + nombre + '\'' +
+                '}';
     }
 }

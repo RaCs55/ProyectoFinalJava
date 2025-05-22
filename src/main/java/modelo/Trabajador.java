@@ -31,11 +31,6 @@ public class Trabajador {
 
     @Override
     public String toString() {
-        return "Trabajador{" +
-               "dni='" + dni + '\'' +
-               ", nombre='" + nombre + '\'' +
-               ", apellidos='" + apellidos + '\'' +
-               ", anyosExperiencia=" + anyosExperiencia +
-               '}';
+        return dni + "," + nombre + "," + apellidos + "," + anyosExperiencia;
     }
 }

@@ -1,11 +1,10 @@
 package modelo.dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 
 import modelo.Factura;
+import modelo.Producto;
 
 public class FacturaDAO extends ModeloDAO<Factura, String> {
 
@@ -39,5 +38,24 @@ public class FacturaDAO extends ModeloDAO<Factura, String> {
 			return true;
 		}
 	}
-	
+
+	@Override
+	public Factura[] mostrar() throws SQLException {
+		try (Connection con = DriverManager.getConnection(url, user, password)) {
+			String sql = "SELECT * FROM FACTURA";
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			ArrayList<Factura> data = new ArrayList<>();
+			while (rs.next()) {
+				String codFactura = rs.getString(1);
+				String forma_de_pago = rs.getString(2);
+				double precio_total = rs.getDouble(3);
+				Factura factura = new Factura(codFactura, forma_de_pago, precio_total);
+				data.add(factura);
+			}
+
+			return data.toArray(new Factura[0]);
+		}
+	}
+
 }

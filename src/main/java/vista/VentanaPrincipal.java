@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,8 +14,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import controlador.ControladorBD;
-import controlador.Navegador;
+import util.BaseDatosController;
+import util.Navegador;
 
 public class VentanaPrincipal extends JFrame {
 
@@ -29,6 +28,8 @@ public class VentanaPrincipal extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaPrincipal() {
+
+
 		setTitle("VentanaPrincipal");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(450, 300);
@@ -92,7 +93,7 @@ public class VentanaPrincipal extends JFrame {
 				String user = textUser.getText();
 				String password = textPassword.getText();
 
-				ControladorBD gestor = new ControladorBD();
+				BaseDatosController gestor = new BaseDatosController();
 				if (gestor.comprobarConexion(user, password)) {
 					// Aqui luego tengo que agregar otra ventana
 					if (!Navegador.isCreate("VentanaMenu")) {

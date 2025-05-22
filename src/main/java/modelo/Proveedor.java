@@ -25,10 +25,6 @@ public class Proveedor {
 
     @Override
     public String toString() {
-        return "Proveedor{" +
-               "cifProveedor='" + cifProveedor + '\'' +
-               ", nombre='" + nombre + '\'' +
-               ", direccion='" + direccion + '\'' +
-               '}';
+        return cifProveedor + "," + nombre + "," + direccion;
     }
 }
