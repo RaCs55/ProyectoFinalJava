@@ -3,6 +3,7 @@ package vista;
 import controlador.*;
 import modelo.*;
 import util.BaseDatosController;
+import util.GestionErrores;
 import util.Navegador;
 import util.TablasController;
 
@@ -22,13 +23,11 @@ public class VentanaAgregar extends JFrame {
     private static final long serialVersionUID = 1L;
     private String nombreTabla;
     private Map<String, JLabel> labelsMap = new HashMap<>();
-    private Map<String, JTextField> textFieldsMap = new HashMap<>();
-    private Pedir pedir;
+    private Map<String, JComponent> componentesMap = new HashMap<>();
 
 
-    public VentanaAgregar(String nombreTabla, JTable table, Pedir pedir) {
+    public VentanaAgregar(String nombreTabla, JTable table) {
         this.nombreTabla = nombreTabla;
-        this.pedir = pedir;
 
         addWindowListener(new WindowAdapter() {
             @Override
@@ -45,9 +44,8 @@ public class VentanaAgregar extends JFrame {
 
         getContentPane().setLayout(new BorderLayout());
 
-        System.out.println(pedir.getCodFactura());
-        System.out.println(pedir.getCodPedido());
-        JPanel camposPanel = getCamposPanel();
+
+        JPanel camposPanel = getCamposPanel(nombreTabla);
         getContentPane().add(camposPanel, BorderLayout.CENTER);
 
 
@@ -57,55 +55,114 @@ public class VentanaAgregar extends JFrame {
         getContentPane().add(botonPanel, BorderLayout.SOUTH);
 
         btnGuardar.addActionListener(e -> {
-            if (!isSomeTextFieldEmpty()) {
+            if (!hayAlgunTextFieldVacio()) {
                 agregarTablaPorNombre();
                 TablasController tablasController = new TablasController(table);
                 tablasController.actualizarTabla(nombreTabla);
                 dispose();
             } else {
-                System.out.println("ERROR");
-            }
+                GestionErrores.mostrarError(GestionErrores.TipoError.OPERACION_NO_COMPLETADA,
+                        "Tienen que estar que rellenar todos los campos", this);
+           }
         });
 
     }
 
-    public JPanel getCamposPanel() {
+    private JPanel crearCampo(String nombreCampo) {
+        JPanel fila = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JLabel label = new JLabel(nombreCampo + ":");
+        label.setPreferredSize(new Dimension(120, 25));
+        JTextField textField = new JTextField(20);
+
+        labelsMap.put(nombreCampo, label);
+        componentesMap.put(nombreCampo, textField);
+
+        fila.add(label);
+        fila.add(textField);
+        return fila;
+    }
+
+    private JPanel crearCampoCombo(String nombreCampo, String[] opciones) {
+        JPanel fila = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JLabel label = new JLabel(nombreCampo + ":");
+        label.setPreferredSize(new Dimension(150, 25));
+        JComboBox<String> comboBox = new JComboBox<>(opciones);
+        comboBox.setPreferredSize(new Dimension(200, 25));
+
+        labelsMap.put(nombreCampo, label);
+        componentesMap.put(nombreCampo, comboBox);
+
+        fila.add(label);
+        fila.add(comboBox);
+        return fila;
+    }
+
+    public JPanel getCamposPanel(String nombreTabla) {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        String[] formasDePago = {"Tarjeta", "Efectivo"};
 
-        BaseDatosController baseDatosController = new BaseDatosController();
-        List<String> columnas = baseDatosController.obtenerNombreColumnas(nombreTabla);
+        switch (nombreTabla) {
+            case "Trabajador":
+                panel.add(crearCampo("dni"));
+                panel.add(crearCampo("nombre"));
+                panel.add(crearCampo("apellidos"));
+                panel.add(crearCampo("anyos_experiencia"));
+                break;
+            case "Proveedor":
+                panel.add(crearCampo("cifProveedor"));
+                panel.add(crearCampo("nombre"));
+                panel.add(crearCampo("direccion"));
+                break;
+            case "Pedido":
+                String[] nombresProductos = ProductoController.obtenerNombreProductos();
+                String[] bebidasProductos = ProductoController.obtenerBebidasProductos();
 
-        for (String columna : columnas) {
-            JPanel fila = new JPanel(new FlowLayout(FlowLayout.CENTER));
-
-            JLabel label = new JLabel(columna + ":");
-            label.setPreferredSize(new Dimension(120, 25));
-            JTextField textField = new JTextField(20);
-
-            labelsMap.put(columna, label);
-            textFieldsMap.put(columna, textField);
-
-            fila.add(label);
-            fila.add(textField);
-
-            panel.add(fila);
+                panel.add(crearCampoCombo("nombre", nombresProductos));
+                panel.add(crearCampoCombo("bebida", bebidasProductos));
+                panel.add(crearCampoCombo("forma_de_pago", formasDePago));
+                break;
+            case "Producto":
+                String[] tiposProductos = {"Menu", "Entrante", "Postre", "Bebida"};
+                panel.add(crearCampo("nombre"));
+                panel.add(crearCampoCombo("tipo", tiposProductos));
+                panel.add(crearCampo("precio"));
+                break;
+            case "Factura":
+                panel.add(crearCampoCombo("forma_de_pago", formasDePago));
+                panel.add(crearCampo("precio_total"));
+                break;
         }
 
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-
         return panel;
     }
 
 
-    public boolean isSomeTextFieldEmpty() {
+    private String getValorCampo(String nombreCampo) {
+        JComponent comp = componentesMap.get(nombreCampo);
+        if (comp instanceof JTextField) {
+            return ((JTextField)comp).getText();
+        } else if (comp instanceof JComboBox) {
+            return (String) ((JComboBox<String>) comp).getSelectedItem();
+        }
+        return null;
+    }
 
-        for (JTextField textField : textFieldsMap.values()) {
-            if (textField.getText().isEmpty()) {
-                return true;
+    public boolean hayAlgunTextFieldVacio() {
+        for (JComponent componente : componentesMap.values()) {
+            if (componente instanceof JTextField) {
+                JTextField tf = (JTextField) componente;
+                if (tf.getText().isEmpty()) {
+                    return true;
+                }
+            } else if (componente instanceof JComboBox) {
+                JComboBox<String> cb = (JComboBox<String>) componente;
+                if (cb.getSelectedItem() == null || cb.getSelectedItem().toString().isEmpty()) {
+                    return true;
+                }
             }
         }
-
         return false;
     }
 
@@ -113,12 +170,6 @@ public class VentanaAgregar extends JFrame {
         switch (nombreTabla) {
             case "Pedido":
                 PedidoController.agregar(crearPedido());
-
-                if (pedir.getCodFactura() != null && pedir.getCodPedido() != null) {
-                    PedirController.agregar(crearPedir());
-                    pedir.setCodPedido(null);
-                    pedir.setCodFactura(null);
-                }
                 break;
             case "Producto":
                 ProductoController.agregar(crearProducto());
@@ -128,74 +179,58 @@ public class VentanaAgregar extends JFrame {
                 break;
             case "Factura":
                 FacturaController.agregar(crearFactura());
-                if (pedir.getCodPedido() != null && pedir.getCodFactura() != null) {
-                    System.out.println("H");
-                    PedirController.agregar(crearPedir());
-                    pedir.setCodPedido(null);
-                    pedir.setCodFactura(null);
-                }
                 break;
             case "Proveedor":
                 ProveedorController.agregar(crearProveedor());
                 break;
-            default:
-
-                break;
-
         }
     }
 
-    private Pedir crearPedir() {
-        return new Pedir(
-                pedir.getCodPedido(),
-                pedir.getCodFactura()
-        );
-    }
+
+
 
     private Proveedor crearProveedor() {
         return new Proveedor(
-                textFieldsMap.get("cifProveedor").getText(),
-                textFieldsMap.get("nombre").getText(),
-                textFieldsMap.get("direccion").getText()
+                getValorCampo("cifProveedor"),
+                getValorCampo("nombre"),
+                getValorCampo("direccion")
         );
     }
 
 
     public Pedido crearPedido() {
-        pedir.setCodPedido(textFieldsMap.get("codpedido").getText());
         return new Pedido(
-                textFieldsMap.get("codpedido").getText(),
-                textFieldsMap.get("comida").getText(),
-                textFieldsMap.get("bebida").getText()
+                null,
+                getValorCampo("nombre"),
+                getValorCampo("bebida"),
+                getValorCampo("forma_de_pago")
         );
     }
 
     public Trabajador crearTrabjador() {
-
         return new Trabajador(
-                textFieldsMap.get("dni").getText(),
-                textFieldsMap.get("nombre").getText(),
-                textFieldsMap.get("apellidos").getText(),
-                Integer.parseInt(textFieldsMap.get("anyos_experiencia").getText())
+                getValorCampo("dni"),
+                getValorCampo("nombre"),
+                getValorCampo("apellidos"),
+                Integer.parseInt(getValorCampo("anyos_experiencia"))
         );
     }
 
 
     public Producto crearProducto() {
         return new Producto(
-                textFieldsMap.get("codProducto").getText(),
-                textFieldsMap.get("nombre").getText(),
-                textFieldsMap.get("tipo").getText(),
-                Double.parseDouble(textFieldsMap.get("precio").getText())
+                null,
+                getValorCampo("nombre"),
+                getValorCampo("tipo"),
+                Double.parseDouble(getValorCampo("precio"))
         );
     }
 
     public Factura crearFactura() {
-        pedir.setCodFactura(textFieldsMap.get("codfactura").getText());
         return new Factura(
-                textFieldsMap.get("codfactura").getText(),
-                textFieldsMap.get("forma_de_pago").getText(),
-                Double.parseDouble(textFieldsMap.get("precio_total").getText())
+                null,
+                getValorCampo("forma_de_pago"),
+                Double.parseDouble(getValorCampo("precio_total"))
         );
     }
 

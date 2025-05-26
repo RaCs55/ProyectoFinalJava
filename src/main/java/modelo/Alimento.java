@@ -1,20 +1,20 @@
 package modelo;
 
 public class Alimento {
-    private int codigo;
+    private int codAlimento;
     private String tipo;
     private String nombre;
 
     public Alimento() {}
 
     public Alimento(int codAlimento, String tipo, String nombre) {
-        this.codigo = codAlimento;
+        this.codAlimento = codAlimento;
         this.tipo = tipo;
         this.nombre = nombre;
     }
 
-    public int getCodAlimento() { return codigo; }
-    public void setCodAlimento(int codAlimento) { this.codigo = codAlimento; }
+    public int getCodAlimento() { return codAlimento; }
+    public void setCodAlimento(int codAlimento) { this.codAlimento = codAlimento; }
 
     public String getTipo() { return tipo; }
     public void setTipo(String tipo) { this.tipo = tipo; }
@@ -25,9 +25,9 @@ public class Alimento {
     @Override
     public String toString() {
         return "Alimento{" +
-                "codAlimento=" + codigo +
-                ", tipo='" + tipo + '\'' +
-                ", nombre='" + nombre + '\'' +
-                '}';
+               "codAlimento=" + codAlimento +
+               ", tipo='" + tipo + '\'' +
+               ", nombre='" + nombre + '\'' +
+               '}';
     }
 }

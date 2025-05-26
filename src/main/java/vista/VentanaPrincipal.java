@@ -5,16 +5,11 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import util.BaseDatosController;
+import util.GestionErrores;
 import util.Navegador;
 
 public class VentanaPrincipal extends JFrame {
@@ -22,7 +17,7 @@ public class VentanaPrincipal extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textUser;
-	private JTextField textPassword;
+	private JPasswordField textPassword;
 
 	/**
 	 * Create the frame.
@@ -52,7 +47,7 @@ public class VentanaPrincipal extends JFrame {
 		panel.add(textUser);
 		textUser.setColumns(10);
 
-		textPassword = new JTextField();
+		textPassword = new JPasswordField();
 		textPassword.setBounds(173, 142, 221, 20);
 		panel.add(textPassword);
 		textPassword.setColumns(10);
@@ -71,51 +66,52 @@ public class VentanaPrincipal extends JFrame {
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 
-		//JLabel lblNewLabel_3 = new JLabel("");
-		//lblNewLabel_3.setBounds(33, 0, 34, 70);
-		//panel_1.add(lblNewLabel_3);
-		//lblNewLabel_3.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/images/izquierda.png")));
+		JLabel lblNewLabel_3 = new JLabel("");
+		lblNewLabel_3.setBounds(33, 0, 34, 70);
+		panel_1.add(lblNewLabel_3);
+		lblNewLabel_3.setIcon(new ImageIcon(getClass().getResource("/images/izquierda.png")));
 		JLabel lblNewLabel_2 = new JLabel("LOS POLLOS HERMANOS");
 		lblNewLabel_2.setBounds(0, 22, 434, 26);
 		panel_1.add(lblNewLabel_2);
 		lblNewLabel_2.setBackground(new Color(255, 255, 255));
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblNewLabel_2.setFont(new Font("SansSerif", Font.PLAIN, 18));
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 
-		//JLabel lblNewLabel_3_1 = new JLabel("");
-		//lblNewLabel_3_1.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/images/derecha.png")));
-		//lblNewLabel_3_1.setBounds(359, 0, 34, 70);
-		//panel_1.add(lblNewLabel_3_1);
+		JLabel lblNewLabel_3_1 = new JLabel("");
+		lblNewLabel_3_1.setIcon(new ImageIcon(getClass().getResource("/images/derecha.png")));
+		lblNewLabel_3_1.setBounds(359, 0, 34, 70);
+		panel_1.add(lblNewLabel_3_1);
 
 		JButton btnEnviar = new JButton("Enviar");
-		btnEnviar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String user = textUser.getText();
-				String password = textPassword.getText();
-
-				BaseDatosController gestor = new BaseDatosController();
-				if (gestor.comprobarConexion(user, password)) {
-					// Aqui luego tengo que agregar otra ventana
-					if (!Navegador.isCreate("VentanaMenu")) {
-						VentanaMenu ventanaMenu = new VentanaMenu();
-						Navegador.agregarVentana(ventanaMenu);
-					}
-
-					Navegador.dispatcher("VentanaMenu", true);
-					Navegador.dispatcher("VentanaPrincipal", false);
-
-				} else {
-					mostrarMensaje("Error", "El usuario indicado no existe", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		});
 		btnEnviar.setBounds(25, 203, 369, 31);
 		panel.add(btnEnviar);
-		//ImageIcon icon = new ImageIcon(getClass().getResource("/images/izquierda.png"));
-		//JLabel label = new JLabel(icon);
+		btnEnviar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controlBotonEnviar();
+			}
+		});
+
+
 	}
 
-	private void mostrarMensaje(String titulo, String mensaje, int tipo) {
-		JOptionPane.showMessageDialog(this, mensaje, titulo, tipo);
+	public void controlBotonEnviar() {
+		BaseDatosController gestor = new BaseDatosController();
+		String user = textUser.getText();
+		String password = textPassword.getText();
+
+		if (gestor.comprobarConexion(user, password)) {
+			if (!Navegador.isCreate("VentanaMenu")) {
+				VentanaMenu ventanaMenu = new VentanaMenu();
+				Navegador.agregarVentana(ventanaMenu);
+			}
+			Navegador.dispatcher("VentanaMenu", true);
+			Navegador.dispatcher("VentanaPrincipal", false);
+
+		} else {
+			GestionErrores.mostrarError(GestionErrores.TipoError.VALIDACION,
+					"Usuario o Contraseña incorrecta",
+					this);
+		}
 	}
+
 }

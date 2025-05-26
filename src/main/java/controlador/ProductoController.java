@@ -4,33 +4,29 @@ import modelo.Producto;
 import modelo.Proveedor;
 import modelo.dao.ProductoDAO;
 import util.FileController;
+import util.GestionErrores;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ProductoController {
-
-
     private static ProductoDAO productoDAO = new ProductoDAO();
-
 
     public static void agregar(Producto producto) {
         try {
             productoDAO.agregar(producto);
         }catch (SQLException e) {
-            e.printStackTrace();
+            GestionErrores.manejarSQLException(e, null);
         }
     }
-
 
     public static void eliminar(String codigo) {
         try {
             productoDAO.eliminar(codigo);
         }catch (SQLException e) {
-            e.printStackTrace();
+            GestionErrores.manejarSQLException(e, null);
         }
     }
-
 
     public static Producto crearProductoDesdeArray(String[] datos) {
         return new Producto(datos[0], datos[1], datos[2], Double.parseDouble(datos[3]));
@@ -72,6 +68,24 @@ public class ProductoController {
 
         return data;
 
+    }
+
+    public static String[] obtenerNombreProductos() {
+        try {
+            return productoDAO.obtenerNombreProducto();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static String[] obtenerBebidasProductos() {
+        try {
+            return productoDAO.obtenerBebidasProducto();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 

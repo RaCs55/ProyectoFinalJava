@@ -4,6 +4,7 @@ import modelo.Producto;
 import modelo.Proveedor;
 import modelo.dao.ProductoDAO;
 import modelo.dao.ProveedorDAO;
+import util.GestionErrores;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class ProveedorController {
         try {
             proveedorDAO.agregar(proveedor);
         }catch (SQLException e) {
-            e.printStackTrace();
+            GestionErrores.manejarSQLException(e, null);
         }
     }
 
@@ -24,15 +25,7 @@ public class ProveedorController {
         try {
             proveedorDAO.eliminar(codigo);
         }catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void borrarContenido() {
-        try {
-            proveedorDAO.borrarContenido();
-        } catch (SQLException e) {
-            e.printStackTrace();
+            GestionErrores.manejarSQLException(e, null);
         }
     }
 

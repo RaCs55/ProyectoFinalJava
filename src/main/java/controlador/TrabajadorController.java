@@ -4,6 +4,7 @@ import modelo.Producto;
 import modelo.Proveedor;
 import modelo.Trabajador;
 import modelo.dao.TrabajadorDAO;
+import util.GestionErrores;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class TrabajadorController {
         try {
             trabajadorDAO.agregar(trabajador);
         }catch (SQLException e) {
-            e.printStackTrace();
+            GestionErrores.manejarSQLException(e, null);
         }
     }
 
@@ -25,7 +26,7 @@ public class TrabajadorController {
         try {
             trabajadorDAO.eliminar(codigo);
         } catch (SQLException e) {
-            e.printStackTrace();
+            GestionErrores.manejarSQLException(e, null);
         }
     }
 

@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 public class ProveedorDAO extends ModeloDAO<Proveedor, String> {
     @Override
-    public boolean agregar(Proveedor proveedor) throws SQLException {
-        try (Connection con = DriverManager.getConnection(url, user, password)) {
+    public void agregar(Proveedor proveedor) throws SQLException {
+        try (Connection con = baseDatosController.getConnection()) {
             String sql = "INSERT INTO PROVEEDOR (cifproveedor, nombre, direccion) VALUES (?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(sql);
 
@@ -18,29 +18,23 @@ public class ProveedorDAO extends ModeloDAO<Proveedor, String> {
             ps.setString(2, proveedor.getNombre());
             ps.setString(3, proveedor.getDireccion());
             ps.execute();
-            return true;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
 
-        return false;
     }
 
     @Override
-    public boolean eliminar(String codigo) throws SQLException {
-        try (Connection con = DriverManager.getConnection(url, user, password)) {
+    public void eliminar(String codigo) throws SQLException {
+        try (Connection con = baseDatosController.getConnection()) {
             String sql = "DELETE FROM PROVEEDOR WHERE cifproveedor = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, codigo);
             ps.execute();
-            return true;
         }
     }
 
     @Override
     public Proveedor[] mostrar() throws SQLException {
-        try (Connection con = DriverManager.getConnection(url, user, password)) {
+        try (Connection con = baseDatosController.getConnection()) {
             String sql = "SELECT * FROM PROVEEDOR";
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -52,16 +46,8 @@ public class ProveedorDAO extends ModeloDAO<Proveedor, String> {
                 Proveedor proveedor = new Proveedor(cifProveedor, nombre, dirccion);
                 data.add(proveedor);
             }
-
             return data.toArray(new Proveedor[0]);
         }
     }
 
-    public void borrarContenido() throws SQLException {
-        try (Connection con = DriverManager.getConnection(url, user, password)) {
-            String sql = "DELETE FROM PROVEEDOR";
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.execute();
-        }
-    }
 }

@@ -13,27 +13,22 @@ public class TablasController {
 	private BaseDatosController controladorBD = new BaseDatosController();
 	private boolean esEditable;
 	private JTable tabla;
-	
+	private Object valorPKAnterior;
+
 	public TablasController(JTable tabla) {
 		this.tabla = tabla;
 	}
 
 
-
-
-
-	public String[] getColumnNames(String nameTable) {
-		List<String> columnNames = controladorBD.obtenerNombreColumnas(nameTable);
-		return columnNames.toArray(new String[0]);
-	}
-
 	public TableModelListener registrarTablasListener(String nombreTablaActual) {
 		return e -> {
-			System.out.println("Listener activado. Tipo de evento: " + e.getType());
 			if (e.getType() == TableModelEvent.UPDATE) {
-				int column = tabla.getSelectedColumn();
 				int row = tabla.getSelectedRow();
-				System.out.println("Update en fila: " + row + ", columna: " + column);
+				int column = tabla.getSelectedColumn();
+
+				Object valuePK = valorPKAnterior;
+				System.out.println(row + " " + column);
+				System.out.println(valuePK);
 
 				String nombreColumna = tabla.getColumnName(column);
 				String nombrePK = tabla.getColumnName(0);
@@ -44,24 +39,17 @@ public class TablasController {
 					String valueString = (String) value;
 					try {
 						int i = Integer.parseInt(valueString);
-						System.out.println("Es integer (convertido): " + i);
 						value = i;
 
 					} catch (NumberFormatException e1) {
 						try {
 							double d = Double.parseDouble(valueString);
-							System.out.println("Es double (convertido): " + d);
 							value = d;
 						} catch (NumberFormatException e2) {
-							System.out.println("No es número, sigue siendo string");
+							GestionErrores.mostrarError(GestionErrores.TipoError.DATOS_INVALIDOS, "El campo introducido es invalido.", null);
 						}
 					}
 				}
-
-				Object valuePK = tabla.getValueAt(row, 0);
-
-				System.out.println("Actualizando: " + nombreColumna + " = " + value + " donde " + nombrePK + " = " + valuePK);
-
 				BaseDatosController baseDatosController = new BaseDatosController();
 				baseDatosController.actualizarCeldaTabla(nombreTablaActual, nombreColumna, nombrePK, valuePK, value);
 			}
@@ -71,7 +59,6 @@ public class TablasController {
 
 	public void actualizarTabla(String nombreTabla) {
 		Object[][] data = null;
-		FileController fileController = new FileController();
 		switch (nombreTabla) {
 			case "Producto":
 				data = ProductoController.obtenerValores();
@@ -88,9 +75,6 @@ public class TablasController {
 			case "Factura":
 				data = FacturaController.obtenerValores();
 				break;
-			default:
-				System.out.println("ERROR ");
-				break;
 		}
 
 		String[] nombresColumna = controladorBD.obtenerNombreColumnas(nombreTabla).toArray(new String[0]);
@@ -103,10 +87,13 @@ public class TablasController {
 			       return esEditable;
 			    }
 			};
-
-
 			model.addTableModelListener(registrarTablasListener(nombreTabla));
 			tabla.setModel(model);
+			tabla.getSelectionModel().addListSelectionListener(event -> {
+				if (!event.getValueIsAdjusting() && tabla.getSelectedRow() != -1) {
+					valorPKAnterior = tabla.getValueAt(tabla.getSelectedRow(), 0);
+				}
+			});
 		}
 	}
 	
@@ -118,5 +105,7 @@ public class TablasController {
 	public boolean getEsEditable() {
 		return esEditable;
 	}
+
+
 	
 }

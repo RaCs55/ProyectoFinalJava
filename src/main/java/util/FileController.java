@@ -23,12 +23,12 @@ public class FileController {
         if (r == JFileChooser.APPROVE_OPTION) {
             return jFileChooser.getSelectedFile().getAbsolutePath();
         } else {
+            GestionErrores.mostrarError(GestionErrores.TipoError.OPERACION_NO_COMPLETADA, "No se ha podido abrir el archivo", null);
             return null;
         }
     }
 
     public ArrayList<String[]> cargarDatos(String ruta ) {
-
         BufferedReader br;
         ArrayList<String[]> lista = new ArrayList<>();
         try {
@@ -40,11 +40,9 @@ public class FileController {
             }
             br.close();
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            GestionErrores.mostrarError(GestionErrores.TipoError.OPERACION_NO_COMPLETADA, "Archivo no encontrado", null);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            GestionErrores.mostrarError(GestionErrores.TipoError.VALIDACION, "No se ha podido leer lo que contiene el archivo", null);
         }
 
         return lista;

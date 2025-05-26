@@ -5,6 +5,7 @@ import modelo.Pedido;
 import modelo.Producto;
 import modelo.dao.FacturaDAO;
 import modelo.dao.ProductoDAO;
+import util.GestionErrores;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class FacturaController {
         try {
             facturaDAO.agregar(factura);
         }catch (SQLException e) {
-            e.printStackTrace();
+            GestionErrores.manejarSQLException(e, null);
         }
     }
 
@@ -25,7 +26,7 @@ public class FacturaController {
         try {
             facturaDAO.eliminar(codigo);
         } catch (SQLException e) {
-            e.printStackTrace();
+            GestionErrores.manejarSQLException(e, null);
         }
     }
 

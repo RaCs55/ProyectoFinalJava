@@ -11,10 +11,10 @@ import modelo.Trabajador;
 public class TrabajadorDAO extends ModeloDAO<Trabajador, String> {
 
 	@Override
-	public boolean agregar(Trabajador trabajador) throws SQLException {
+	public void agregar(Trabajador trabajador) throws SQLException {
 
-		try (Connection con = DriverManager.getConnection(url, user, password)) {
-			String sql = "INSERT INTO TRABAJADOR (dni, nombre, apellidos, anyos_experencia) VALUES (?, ?, ?, ?)";
+		try (Connection con = baseDatosController.getConnection()) {
+			String sql = "INSERT INTO trabajador (dni, nombre, apellidos, anyos_experiencia) VALUES (?, ?, ?, ?)";
 			PreparedStatement ps = con.prepareStatement(sql);
 
 			ps.setString(1, trabajador.getDni());
@@ -22,26 +22,24 @@ public class TrabajadorDAO extends ModeloDAO<Trabajador, String> {
 			ps.setString(3, trabajador.getApellidos());
 			ps.setInt(4, trabajador.getAnyosExperiencia());
 			ps.execute();
-			return true;
 
 		} 
 	}
 
 	@Override
-	public boolean eliminar(String codigo) throws SQLException {
-		try (Connection con = DriverManager.getConnection(url, user, password)) {
+	public void eliminar(String codigo) throws SQLException {
+		try (Connection con = baseDatosController.getConnection()) {
 			String sql = "DELETE FROM TRABAJADOR WHERE dni = ?";
 			PreparedStatement ps = con.prepareStatement(sql);
 
 			ps.setString(1, codigo);
 			ps.execute();
-			return true;
 		}
 	}
 
 	@Override
 	public Trabajador[] mostrar() throws SQLException {
-		try (Connection con = DriverManager.getConnection(url, user, password)) {
+		try (Connection con = baseDatosController.getConnection()) {
 			String sql = "SELECT * FROM TRABAJADOR";
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(sql);

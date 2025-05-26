@@ -77,7 +77,7 @@ public class GestionArchivos {
                 bw.flush();
                 bw.close();
             } catch (IOException ex) {
-                ex.printStackTrace();
+                GestionErrores.mostrarError(GestionErrores.TipoError.DATOS_INVALIDOS, "No se ha podido escribir en el archivo", null);
             }
         }
     }

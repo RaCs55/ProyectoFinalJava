@@ -2,22 +2,12 @@ package modelo.dao;
 
 import java.sql.SQLException;
 
-import configuracion.ConfiguracionBD;
+import util.BaseDatosController;
 
 public abstract class ModeloDAO<T, V> {
-	private ConfiguracionBD configuracionBD = new ConfiguracionBD();
-	protected String url = configuracionBD.getUrl();
-	protected String user = configuracionBD.getUser();
-	protected String password = configuracionBD.getPassword();
-	
-	
-	public ModeloDAO() {
+	protected BaseDatosController baseDatosController = new BaseDatosController();
 
-	}
-	
-	public abstract boolean agregar(T objeto) throws SQLException;
-	public abstract boolean eliminar(V codigo) throws SQLException;
+	public abstract void agregar(T objeto) throws SQLException;
+	public abstract void eliminar(V codigo) throws SQLException;
 	public abstract T[] mostrar() throws SQLException;
-	
-	
 }

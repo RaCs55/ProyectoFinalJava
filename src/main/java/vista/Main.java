@@ -9,11 +9,7 @@ public class Main {
 	public static void main(String[] args) {
 		Estilos.aplicarEstilos();
 		VentanaPrincipal ventanaPrincipal = new VentanaPrincipal();
-		VentanaMenu ventanaMenu = new VentanaMenu();
 		Navegador.agregarVentana(ventanaPrincipal);
 		Navegador.dispatcher("VentanaPrincipal", true);
-
-		
 	}
-
 }

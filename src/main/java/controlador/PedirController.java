@@ -2,6 +2,7 @@ package controlador;
 
 import modelo.Pedir;
 import modelo.dao.PedirDAO;
+import util.GestionErrores;
 
 import java.sql.SQLException;
 
@@ -12,7 +13,7 @@ public class PedirController {
         try {
             pedirDAO.agregar(pedir);
         }catch (SQLException e) {
-            e.printStackTrace();
+            GestionErrores.manejarSQLException(e, null);
         }
     }
 
@@ -20,7 +21,7 @@ public class PedirController {
         try {
             pedirDAO.eliminar(codigo);
         } catch (SQLException e) {
-            e.printStackTrace();
+            GestionErrores.manejarSQLException(e, null);
         }
     }
 }

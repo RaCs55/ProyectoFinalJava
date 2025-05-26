@@ -7,6 +7,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,10 +16,7 @@ import javax.swing.*;
 
 import controlador.*;
 import modelo.Pedir;
-import util.FileController;
-import util.GestionArchivos;
-import util.Navegador;
-import util.TablasController;
+import util.*;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -32,18 +30,16 @@ public class VentanaMenu extends JFrame {
     private Map<String, JButton> botonesMapTablas = new HashMap<>();
     private Map<String, JButton> botonesMapFunciones = new HashMap<>();
     FileController fileController = new FileController();
-    private Pedir pedir;
 
     public VentanaMenu() {
-        ImageIcon icono = new ImageIcon(getClass().getResource("/images/"));
-        setIconImage(icono.getImage());
-        this.pedir = new Pedir();
+
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
                 Navegador.dispatcher("VentanaPrincipal", true);
             }
         });
+
         setTitle("VentanaMenu");
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setSize(1200, 800);
@@ -61,18 +57,15 @@ public class VentanaMenu extends JFrame {
         JMenu mnFile = new JMenu("File");
         menuBar.add(mnFile);
 
-        JMenu mnPerfil = new JMenu("Perfil");
-        menuBar.add(mnPerfil);
-
         JMenuItem mntmImportar = new JMenuItem("Importar");
         mntmImportar.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) {
                 String ruta = fileController.elegirRuta();
                 ArrayList<String[]> datos = fileController.cargarDatos(ruta);
                 GestionArchivos.importarArchivo(ruta, datos, nombreTablaActual);
 
                 tablasController.actualizarTabla(nombreTablaActual);
-        	}
+            }
         });
         mnFile.add(mntmImportar);
 
@@ -91,7 +84,6 @@ public class VentanaMenu extends JFrame {
         controlBotonesTablas();
         controlBotonesFunciones();
 
-
     }
 
 
@@ -100,7 +92,7 @@ public class VentanaMenu extends JFrame {
         panel.setLayout(new FlowLayout());
 
         JLabel titulo = new JLabel("LOS POLLOS HERMANOS");
-        titulo.setFont(new Font("Arial", Font.BOLD, 24));
+        titulo.setFont(new Font("SansSerif", Font.PLAIN, 24));
         panel.add(titulo);
 
         return panel;
@@ -161,7 +153,6 @@ public class VentanaMenu extends JFrame {
             botonesMapTablas.get(button).addActionListener(e -> {
                         nombreTablaActual = button;
                         tablasController.actualizarTabla(nombreTablaActual);
-
                     }
             );
         }
@@ -174,23 +165,22 @@ public class VentanaMenu extends JFrame {
             botonesMapFunciones.get(button).addActionListener(e -> {
                 switch (button) {
                     case "Editar":
-                        System.out.println("Editar");
                         tablasController.setEsEditable(!tablasController.getEsEditable());
+                        String valor = tablasController.getEsEditable() ? "si" : "no";
+                        String mensaje = "Ahora las tablas " + valor + " se pueden editar.";
+                        GestionErrores.mostrarMensaje(mensaje, "Editar", this);
                         tablasController.actualizarTabla(nombreTablaActual);
                         break;
                     case "Agregar":
-                        System.out.println("Agregar");
-                        VentanaAgregar ventanaAgregar = new VentanaAgregar(nombreTablaActual, table, pedir);
+                        System.out.println(nombreTablaActual);
+                        VentanaAgregar ventanaAgregar = new VentanaAgregar(nombreTablaActual, table);
                         ventanaAgregar.setVisible(true);
                         break;
                     case "Eliminar":
-                        System.out.println("Eliminar");
                         int column = 0;
                         int row = table.getSelectedRow();
                         String value = table.getModel().getValueAt(row, column).toString();
                         eliminarFila(value);
-
-
                 }
                 tablasController.actualizarTabla(nombreTablaActual);
 
@@ -210,16 +200,11 @@ public class VentanaMenu extends JFrame {
                 TrabajadorController.eliminar(codigo);
                 break;
             case "Factura":
-                PedirController.eliminar(codigo);
                 FacturaController.eliminar(codigo);
                 break;
             case "Pedido":
-                PedirController.eliminar(codigo);
                 PedidoController.eliminar(codigo);
-            default:
-
                 break;
-
         }
     }
 }
